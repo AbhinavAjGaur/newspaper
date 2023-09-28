@@ -1,17 +1,15 @@
-
-import './App.css';
-import React, { Component } from 'react'
-import Navbar from './components/Navbar'
-import News from './components/News';
+import "./App.css";
+import React, { Component } from "react";
+import Navbar from "./components/Navbar";
+import News from "./components/News";
 
 export default class extends Component {
-
   render() {
     return (
       <div>
-        <Navbar/>
-        <News pageSize={6}/>
+        <Navbar />
+        <News pageSize={6} />
       </div>
-    )
+    );
   }
 }

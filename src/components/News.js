@@ -10,7 +10,7 @@ export default class News extends Component {
     console.log("Hello i am a constructor");
     this.state = {
       articles: apiData.articles.slice(0, 4),
-      loading : false,
+      loading: false,
       totalPages: 1,
     };
     // this.getNews();
@@ -21,7 +21,7 @@ export default class News extends Component {
   async componentDidMount() {
     console.log("cdm");
     let url = `https://newsapi.org/v2/top-headlines?country=in&category=business&apiKey=0c997bd2ad3e4370b30320aadbaaf9df&page=1&pageSize=${this.props.pageSize}`;
-    this.setState({loading : true});
+    this.setState({ loading: true });
     let data = await fetch(url);
     let parsedData = await data.json();
     console.log(parsedData);
@@ -29,18 +29,18 @@ export default class News extends Component {
       articles: parsedData.articles,
       totalResults: parsedData.totalResults,
       page: 1,
-      loading : false,
+      loading: false,
     });
   }
 
   // Code with Harry pagination
 
   handlePrevClick = async () => {
-    console.log("Previous",this.state.page);
+    console.log("Previous", this.state.page);
     let url = `https://newsapi.org/v2/top-headlines?country=in&category=business&apiKey=0c997bd2ad3e4370b30320aadbaaf9df&page=${
       this.state.page - 1 !== 0 ? this.state.page - 1 : 1
     }&pageSize=${this.props.pageSize}`;
-    this.setState({loading: true});
+    this.setState({ loading: true });
     let data = await fetch(url);
     let parsedData = await data.json();
     console.log(parsedData);
@@ -60,7 +60,7 @@ export default class News extends Component {
       let url = `https://newsapi.org/v2/top-headlines?country=in&category=business&apiKey=0c997bd2ad3e4370b30320aadbaaf9df&page=${
         this.state.page + 1
       }&pageSize=${this.props.pageSize}`;
-      this.setState({loading: true});
+      this.setState({ loading: true });
       let data = await fetch(url);
       let parsedData = await data.json();
       console.log(parsedData);
@@ -111,7 +111,7 @@ export default class News extends Component {
     return (
       <div className="container my-3">
         <h1 className="text-center">NewPaper - Top Headlines</h1>
-          {this.state.loading && <Spinner/>}
+        {this.state.loading && <Spinner />}
         <div className="row">
           {this.state.articles.map((element) => {
             return (
@@ -218,8 +218,11 @@ export default class News extends Component {
             {" "}
             &larr; Previous
           </button>
-          <button 
-          disabled = {this.state.page + 1 >= Math.ceil(this.state.totalResults/this.props.pageSize)}
+          <button
+            disabled={
+              this.state.page + 1 >=
+              Math.ceil(this.state.totalResults / this.props.pageSize)
+            }
             type="button"
             className="btn btn-dark"
             onClick={this.handleNextClick}
