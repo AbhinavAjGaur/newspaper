@@ -2,8 +2,19 @@ import React, { Component } from "react";
 import NewsItem from "./NewsItem";
 import { apiData } from "../sampleOutput";
 import Spinner from "./Spinner";
+import PropTypes from "prop-types";
 
 export default class News extends Component {
+  static defaultProps = {
+    country: "in",
+    pageSize: 6,
+    category: "general",
+  };
+  static propTypes = {
+    country: PropTypes.string,
+    pageSize: PropTypes.number,
+    category: PropTypes.string,
+  };
   pageNumber = 1;
   constructor() {
     super();
@@ -11,7 +22,7 @@ export default class News extends Component {
     this.state = {
       articles: apiData.articles.slice(0, 4),
       loading: false,
-      totalPages: 1,
+      totalPages: [1],
     };
     // this.getNews();
   }
@@ -20,7 +31,7 @@ export default class News extends Component {
 
   async componentDidMount() {
     console.log("cdm");
-    let url = `https://newsapi.org/v2/top-headlines?country=in&category=business&apiKey=0c997bd2ad3e4370b30320aadbaaf9df&page=1&pageSize=${this.props.pageSize}`;
+    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=0c997bd2ad3e4370b30320aadbaaf9df&page=1&pageSize=${this.props.pageSize}`;
     this.setState({ loading: true });
     let data = await fetch(url);
     let parsedData = await data.json();
@@ -37,7 +48,9 @@ export default class News extends Component {
 
   handlePrevClick = async () => {
     console.log("Previous", this.state.page);
-    let url = `https://newsapi.org/v2/top-headlines?country=in&category=business&apiKey=0c997bd2ad3e4370b30320aadbaaf9df&page=${
+    let url = `https://newsapi.org/v2/top-headlines?country=${
+      this.props.country
+    }&apiKey=0c997bd2ad3e4370b30320aadbaaf9df&page=${
       this.state.page - 1 !== 0 ? this.state.page - 1 : 1
     }&pageSize=${this.props.pageSize}`;
     this.setState({ loading: true });
@@ -57,7 +70,9 @@ export default class News extends Component {
     console.log("Next");
     if (this.state.page + 1 > Math.ceil(this.state.totalResults / 6)) {
     } else {
-      let url = `https://newsapi.org/v2/top-headlines?country=in&category=business&apiKey=0c997bd2ad3e4370b30320aadbaaf9df&page=${
+      let url = `https://newsapi.org/v2/top-headlines?country=${
+        this.props.country
+      }&apiKey=0c997bd2ad3e4370b30320aadbaaf9df&page=${
         this.state.page + 1
       }&pageSize=${this.props.pageSize}`;
       this.setState({ loading: true });
