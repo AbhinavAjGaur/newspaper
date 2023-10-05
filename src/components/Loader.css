@@ -1,0 +1,26 @@
+.skeleton-blog {
+  margin-bottom: 2em;
+  position: relative;
+}
+.skeleton-author {
+  position: absolute;
+  background: #7e8387;
+  height: 164px;
+  width: 318px;
+  border-radius: 2px;
+}
+
+.skeleton-image {
+  height: 252px;
+  width: 318px;
+  border-radius: 2px;
+  background: #ebe6e6;
+  margin-top: 61px;
+}
+.skeleton-footer {
+  height: 30px;
+  width: 318px;
+  border-radius: 2px;
+  background: #ebe6e6;
+  margin-top: 10px;
+}

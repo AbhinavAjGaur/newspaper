@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import NewsItem from "./NewsItem";
 import { apiData } from "../sampleOutput";
-import Spinner from "./Spinner";
+// import Spinner from "./Spinner";
 import PropTypes from "prop-types";
+import Skeleton from "./Skeleton";
+
 
 export default class News extends Component {
   static defaultProps = {
@@ -18,7 +20,7 @@ export default class News extends Component {
   pageNumber = 1;
   constructor() {
     super();
-    console.log("Hello i am a constructor");
+    // console.log("Hello i am a constructor");
     this.state = {
       articles: apiData.articles.slice(0, 4),
       loading: false,
@@ -30,7 +32,7 @@ export default class News extends Component {
   // Code with Harry pagination
 
   async componentDidMount() {
-    console.log("cdm");
+    // console.log("cdm");
     let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=0c997bd2ad3e4370b30320aadbaaf9df&page=1&pageSize=${this.props.pageSize}`;
     this.setState({ loading: true });
     let data = await fetch(url);
@@ -126,7 +128,7 @@ export default class News extends Component {
     return (
       <div className="container my-3">
         <h1 className="text-center">NewPaper - Top Headlines</h1>
-        {this.state.loading && <Spinner />}
+        {this.state.loading && <Skeleton/>}
         <div className="row">
           {this.state.articles.map((element) => {
             return (
@@ -135,7 +137,7 @@ export default class News extends Component {
                   title={element.title ? element.title : ""}
                   description={element.description ? element.description : ""}
                   imageUrl={element.urlToImage}
-                  newsUrl={element.url}
+                  newsUrl={element.url} author={element.author} publishedAt={element.publishedAt}
                 />
               </div>
             );
